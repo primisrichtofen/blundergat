@@ -1,0 +1,15 @@
+GENERATE 10
+QUEUE line
+SEIZE server1
+TEST E EQ server1,1,label_check2
+DEPART line
+ADVANCE 5
+RELEASE server1
+TERMINATE 1
+label_check2 SEIZE server2
+DEPART line
+ADVANCE 5
+RELEASE server2
+TERMINATE 1
+START 50
+END
