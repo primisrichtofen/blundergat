@@ -1,0 +1,33 @@
+* INITIALIZATION
+STORAGE stock,10     ; Initial stock level = 10
+
+* CUSTOMER ARRIVAL
+GENERATE 15          ; One customer every 15 minutes
+TEST L stock,1,wait  ; If stock < 1, go to wait (skip)
+SEIZE stock          ; Take 1 item from stock
+ADVANCE 5            ; Time to serve customer
+RELEASE stock        ; Stock reduced by 1
+TERMINATE 1
+
+* RESTOCK PROCESS
+wait GENERATE 0      ; Immediate check
+TEST L stock,3,restock ; If stock < 3, restock
+TERMINATE
+
+restock GENERATE 0
+ADVANCE 30           ; Restocking delay
+* Refill stock by adding 10 (in GPSS, simulated as releasing extra units)
+RELEASE stock        ; Add back to storage
+RELEASE stock
+RELEASE stock
+RELEASE stock
+RELEASE stock
+RELEASE stock
+RELEASE stock
+RELEASE stock
+RELEASE stock
+RELEASE stock
+TERMINATE
+
+START 50
+END
